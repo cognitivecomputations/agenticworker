@@ -29,25 +29,21 @@ def proxy(path):
 
         if request.method == 'POST':
             if is_stream:
-                response_chunks = []
-
                 def generate():
-                    for chunk in response.iter_content(chunk_size=None):
-                        yield chunk
-                        response_chunks.append(chunk)
+                    response_content = ''
+                    for line in response.iter_lines():
+                        if line:
+                            if line.startswith(b'data: '):
+                                yield line + b'\n'
+                                line_data = line.decode('utf-8')[6:]
+                                if line_data != '[DONE]':
+                                    response_content += json.loads(line_data)['choices'][0]['delta'].get('content', '')
 
-                complete_response = ''.join(chunk.decode('utf-8') for chunk in response_chunks)
-                parsed_response = ''.join(
-                    json.loads(line[6:])['choices'][0]['delta'].get('content', '')
-                    for line in complete_response.split('\n')
-                    if line.startswith('data: ')
-                )
-
-                with open(LOG_FILE, 'a') as log_file:
-                    log_file.write(json.dumps({
-                        'request': json_data,
-                        'response': parsed_response
-                    }) + '\n')
+                    with open(LOG_FILE, 'a') as log_file:
+                        log_file.write(json.dumps({
+                            'request': json_data,
+                            'response': response_content
+                        }) + '\n')
 
                 return Response(stream_with_context(generate()), content_type=response.headers['Content-Type'])
             else:
