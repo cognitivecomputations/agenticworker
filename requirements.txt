@@ -1,1 +1,5 @@
 flask
+crewai 
+crewai_tools
+langchain_openai
+pymemgpt
