@@ -4,6 +4,15 @@ this doesn't work yet.
 work in progress.
 the point is to gather data for agentic use cases.
 
+This supports
+- AutoGen
+- CrewAI
+- MemGPT
+- LangChain Agents
+- princeton-nlp/SWE-agent
+- Devika
+- Open-Devin
+
 ## Start the logging proxy
 
 `python proxy.py`
