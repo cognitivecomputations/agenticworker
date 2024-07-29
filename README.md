@@ -12,6 +12,7 @@ This supports
 - princeton-nlp/SWE-agent
 - Devika
 - Open-Devin
+- llama-agentic-system
 
 ## Start the logging proxy
 
