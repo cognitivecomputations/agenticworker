@@ -1,10 +1,6 @@
 # Agentic Worker
 
-this doesn't work yet.
-work in progress.
-the point is to gather data for agentic use cases.
-
-This supports
+Gather data for agentic dataset, from various frameworks.
 - AutoGen
 - CrewAI
 - MemGPT
