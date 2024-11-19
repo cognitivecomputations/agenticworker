@@ -10,9 +10,9 @@ app = Flask(__name__)
 LOG_FILE = 'logs.jsonl'
 
 load_dotenv()
-OPENAI_API_URL = os.getenv('CATTO_ENDPOINT')
-OPENAI_API_KEY = os.getenv('CATTO_API_KEY')
-OPENAI_MODEL = os.getenv('CATTO_MODEL')
+OPENAI_API_URL = os.getenv('OPENAI_ENDPOINT')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+OPENAI_MODEL = os.getenv('OPENAI_MODEL')
 
 @app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE'])
 @app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -21,7 +21,7 @@ def proxy(path):
     if path.endswith('/models'):
         return Response(
             json.dumps([{
-                "id": "gpt-4o",
+                "id": OPENAI_MODEL,
                 "object": "model",
                 "created": 1686935002,
                 "owned_by": "organization-owner"
