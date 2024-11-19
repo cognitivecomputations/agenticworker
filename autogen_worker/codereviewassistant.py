@@ -1,5 +1,5 @@
 import os
-from autogen import AssistantAgent, UserProxyAgent
+from autogen_scenarios import AssistantAgent, UserProxyAgent
 from autogen.coding import LocalCommandLineCodeExecutor
 
 # Configure the LLM

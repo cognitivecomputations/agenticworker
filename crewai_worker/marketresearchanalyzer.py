@@ -1,5 +1,5 @@
 import os
-from crewai import Crew, Agent, Task, Process
+from crewai_scenarios import Crew, Agent, Task, Process
 from crewai_tools import CSVSearchTool, WebsiteSearchTool, tool
 from langchain_openai import ChatOpenAI
 

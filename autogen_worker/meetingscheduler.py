@@ -1,6 +1,6 @@
 import os
 from datetime import datetime, timedelta
-from autogen import AssistantAgent, UserProxyAgent
+from autogen_scenarios import AssistantAgent, UserProxyAgent
 
 # Configure the LLM
 config_list = [{"model": "gpt-4", "api_key": os.environ["OPENAI_API_KEY"]}]

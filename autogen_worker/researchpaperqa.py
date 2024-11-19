@@ -1,5 +1,5 @@
 import os
-from autogen import RetrieveAssistantAgent, RetrieveUserProxyAgent
+from autogen_scenarios import RetrieveAssistantAgent, RetrieveUserProxyAgent
 from autogen.retrievechat import ChromaRetriever
 
 # Configure the LLM

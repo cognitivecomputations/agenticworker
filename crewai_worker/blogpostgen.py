@@ -1,5 +1,5 @@
 import os
-from crewai import Crew, Agent, Task, Process
+from crewai_scenarios import Crew, Agent, Task, Process
 from crewai_tools import WebsiteSearchTool, CSVSearchTool, DirectoryReadTool, FileReadTool
 
 # Set up the necessary environment variables

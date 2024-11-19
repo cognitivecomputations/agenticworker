@@ -1,5 +1,5 @@
 import os
-from crewai import Crew, Agent, Task
+from crewai_scenarios import Crew, Agent, Task
 from crewai_tools import CodeDocsSearchTool, GithubSearchTool, tool
 
 # Set up the necessary environment variables

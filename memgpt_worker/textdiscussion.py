@@ -1,5 +1,5 @@
 import os
-from memgpt import create_client, configure
+from memgpt_scenarios import create_client, configure
 
 # Configure MemGPT
 configure(
