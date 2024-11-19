@@ -17,11 +17,23 @@ OPENAI_MODEL = os.getenv('CATTO_MODEL')
 @app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE'])
 @app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def proxy(path):
-    # print("\n=== Incoming Request ===")
-    # print(f"Method: {request.method}")
-    # print(f"Path: {path}")
-    # print(f"Headers: {dict(request.headers)}")
-    # print(f"Raw Data: {request.get_data().decode('utf-8')}")
+    
+    if path.endswith('/models'):
+        return Response(
+            json.dumps([{
+                "id": "gpt-4o",
+                "object": "model",
+                "created": 1686935002,
+                "owned_by": "organization-owner"
+            }]),
+            content_type='application/json'
+        )
+    
+    print("\n=== Incoming Request ===")
+    print(f"Method: {request.method}")
+    print(f"Path: {path}")
+    print(f"Headers: {dict(request.headers)}")
+    print(f"Raw Data: {request.get_data().decode('utf-8')}")
     base_path = '/' + OPENAI_API_URL.rstrip('/').split('/')[-1]
     
     # Strip out the first path component and replace with the base_path
@@ -46,10 +58,10 @@ def proxy(path):
     
     is_stream = json_data.get('stream', False) if json_data else False
     
-    # print("\n=== Outgoing Request ===")
-    # print(f"URL: {url}")
-    # print(f"Headers: {headers}")
-    # print(f"Data: {data.decode('utf-8') if data else None}")
+    print("\n=== Outgoing Request ===")
+    print(f"URL: {url}")
+    print(f"Headers: {headers}")
+    print(f"Data: {data.decode('utf-8') if data else None}")
 
     try:
         response = requests.request(
@@ -69,7 +81,7 @@ def proxy(path):
                     for line in response.iter_lines():
                         if line:
                             if line.startswith(b'data: '):
-                                yield line + b'\n'
+                                yield line + b'\n\n'  # Added extra newline for SSE
                                 line_data = line.decode('utf-8')[6:]
                                 if line_data != '[DONE]':
                                     response_content += json.loads(line_data)['choices'][0]['delta'].get('content', '')
